@@ -1,32 +1,43 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <transition name="router-slider" mode="out-in">
+      <router-view />
+    </transition>
+
+    <transition name="router-slider" mode="out-in">
+      <tab-bar v-if="$route.meta.showTab"></tab-bar>
+    </transition>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+import tabBar from "@/components/tabBar";
+export default {
+  components: {
+    tabBar,
+  },
+  data() {
+    return {
+      url: "",
+    };
+  },
+  mounted() {},
+  methods: {},
+};
+</script>
+
+
+<style lang="scss" scoped>
+.router-slider-enter-active,
+.router-slider-leave-active {
+  transition: all 0.3s;
 }
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.router-slider-enter,
+.router-slider-leave-active {
+  opacity: 0;
+}
+body,html{
+  overflow: hidden;
 }
 </style>
